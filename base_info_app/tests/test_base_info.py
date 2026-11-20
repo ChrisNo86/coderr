@@ -21,6 +21,11 @@ class BaseInfoTests(APITestCase):
             "business_profile_count": 0, "offer_count": 0,
         })
 
+    def test_stale_token_is_ignored(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token invalid")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_statistics_are_public_and_rounded(self):
         business = create_user("biz", "business")
         create_offer(business)

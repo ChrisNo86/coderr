@@ -23,6 +23,7 @@ def build_auth_response(user):
 class RegistrationView(APIView):
     """Register a customer or business user (open endpoint)."""
 
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -38,6 +39,7 @@ class RegistrationView(APIView):
 class LoginView(APIView):
     """Log a user in with username and password (open endpoint)."""
 
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):

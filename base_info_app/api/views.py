@@ -13,6 +13,7 @@ from reviews_app.models import Review
 class BaseInfoView(APIView):
     """Return platform statistics for the landing page (open endpoint)."""
 
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def get(self, request):

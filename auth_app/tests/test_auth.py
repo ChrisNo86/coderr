@@ -66,6 +66,12 @@ class LoginTests(APITestCase):
         self.assertEqual(response.data["user_id"], self.user.id)
         self.assertEqual(response.data["username"], "max")
 
+    def test_stale_token_does_not_block_login(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token invalid")
+        data = {"username": "max", "password": "secret123"}
+        response = self.client.post(self.url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_wrong_password_returns_400(self):
         data = {"username": "max", "password": "wrong"}
         response = self.client.post(self.url, data, format="json")
